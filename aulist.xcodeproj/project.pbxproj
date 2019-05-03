@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		79C32E68227B5F15008ECBCD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E67227B5F15008ECBCD /* main.swift */; };
+		79C32E6F227B6129008ECBCD /* AVAUComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E6E227B6129008ECBCD /* AVAUComponents.swift */; };
+		79C32E77227B8A72008ECBCD /* AVAUComponents_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E76227B8A72008ECBCD /* AVAUComponents_Tests.swift */; };
+		79C32E7C227B8B67008ECBCD /* AVAUComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E6E227B6129008ECBCD /* AVAUComponents.swift */; };
+		79C32E7E227BF9B7008ECBCD /* OSType_Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E7D227BF9B7008ECBCD /* OSType_Conversion.swift */; };
+		79C32E7F227BFA30008ECBCD /* OSType_Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E7D227BF9B7008ECBCD /* OSType_Conversion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,10 +30,22 @@
 /* Begin PBXFileReference section */
 		79C32E64227B5F15008ECBCD /* aulist */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = aulist; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C32E67227B5F15008ECBCD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		79C32E6E227B6129008ECBCD /* AVAUComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAUComponents.swift; sourceTree = "<group>"; };
+		79C32E74227B8A72008ECBCD /* AVAUConponents_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVAUConponents_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79C32E76227B8A72008ECBCD /* AVAUComponents_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAUComponents_Tests.swift; sourceTree = "<group>"; };
+		79C32E78227B8A72008ECBCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79C32E7D227BF9B7008ECBCD /* OSType_Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSType_Conversion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		79C32E61227B5F15008ECBCD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79C32E71227B8A72008ECBCD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				79C32E66227B5F15008ECBCD /* aulist */,
+				79C32E75227B8A72008ECBCD /* AVAUConponents_Tests */,
 				79C32E65227B5F15008ECBCD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				79C32E64227B5F15008ECBCD /* aulist */,
+				79C32E74227B8A72008ECBCD /* AVAUConponents_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,8 +77,19 @@
 			isa = PBXGroup;
 			children = (
 				79C32E67227B5F15008ECBCD /* main.swift */,
+				79C32E6E227B6129008ECBCD /* AVAUComponents.swift */,
+				79C32E7D227BF9B7008ECBCD /* OSType_Conversion.swift */,
 			);
 			path = aulist;
+			sourceTree = "<group>";
+		};
+		79C32E75227B8A72008ECBCD /* AVAUConponents_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				79C32E76227B8A72008ECBCD /* AVAUComponents_Tests.swift */,
+				79C32E78227B8A72008ECBCD /* Info.plist */,
+			);
+			path = AVAUConponents_Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +112,23 @@
 			productReference = 79C32E64227B5F15008ECBCD /* aulist */;
 			productType = "com.apple.product-type.tool";
 		};
+		79C32E73227B8A72008ECBCD /* AVAUConponents_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79C32E79227B8A72008ECBCD /* Build configuration list for PBXNativeTarget "AVAUConponents_Tests" */;
+			buildPhases = (
+				79C32E70227B8A72008ECBCD /* Sources */,
+				79C32E71227B8A72008ECBCD /* Frameworks */,
+				79C32E72227B8A72008ECBCD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AVAUConponents_Tests;
+			productName = AVAUConponents_Tests;
+			productReference = 79C32E74227B8A72008ECBCD /* AVAUConponents_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -93,6 +140,9 @@
 				ORGANIZATIONNAME = "Spacebug Industries";
 				TargetAttributes = {
 					79C32E63227B5F15008ECBCD = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					79C32E73227B8A72008ECBCD = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
@@ -110,16 +160,39 @@
 			projectRoot = "";
 			targets = (
 				79C32E63227B5F15008ECBCD /* aulist */,
+				79C32E73227B8A72008ECBCD /* AVAUConponents_Tests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		79C32E72227B8A72008ECBCD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		79C32E60227B5F15008ECBCD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79C32E7E227BF9B7008ECBCD /* OSType_Conversion.swift in Sources */,
+				79C32E6F227B6129008ECBCD /* AVAUComponents.swift in Sources */,
 				79C32E68227B5F15008ECBCD /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79C32E70227B8A72008ECBCD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79C32E7F227BFA30008ECBCD /* OSType_Conversion.swift in Sources */,
+				79C32E7C227B8B67008ECBCD /* AVAUComponents.swift in Sources */,
+				79C32E77227B8A72008ECBCD /* AVAUComponents_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +334,42 @@
 			};
 			name = Release;
 		};
+		79C32E7A227B8A72008ECBCD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = B2NEEFTH6L;
+				INFOPLIST_FILE = AVAUConponents_Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.SBIn.AVAUConponents-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		79C32E7B227B8A72008ECBCD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = B2NEEFTH6L;
+				INFOPLIST_FILE = AVAUConponents_Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.SBIn.AVAUConponents-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -278,6 +387,15 @@
 			buildConfigurations = (
 				79C32E6C227B5F15008ECBCD /* Debug */,
 				79C32E6D227B5F15008ECBCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79C32E79227B8A72008ECBCD /* Build configuration list for PBXNativeTarget "AVAUConponents_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79C32E7A227B8A72008ECBCD /* Debug */,
+				79C32E7B227B8A72008ECBCD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
