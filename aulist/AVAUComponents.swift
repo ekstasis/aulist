@@ -17,7 +17,7 @@ struct AVAUComponents
    let manu: OSType
    let componentType: OSType
    let subtype: OSType
-
+   
    let manager = AVAudioUnitComponentManager.shared()
    let componentDescription: AudioComponentDescription
    let components: [AVAudioUnitComponent]
@@ -52,38 +52,64 @@ struct AVAUComponents
       else {
          return nil
       }
-
+      
       componentDescription = AudioComponentDescription(componentType: self.componentType, componentSubType: self.subtype,
                                                        componentManufacturer: self.manu, componentFlags: 0, componentFlagsMask: 0)
       components = manager.components(matching: componentDescription)
    }
-
+   
    func display()
    {
+      guard components.count != 0 else {
+         print("\nNo components found.\n")
+         exit(1)
+      }
+      
+      // "Apple: DynamicsCompressor"
+      let nameStrings: [(String, String)] = components.map { componentNames(comp: $0) }
+      let names: [String] = nameStrings.map { "\($0): \($1)" }
+      
+      // "( appl aufx dncp )"
+      let codes: [(String, String, String)]  = components.map { componentCodes(comp: $0) }
+      let codeStrings = codes.map { "( \($0) \($1) \($2) )" }
+      
+      var lengthOfLongestName = 0
+      for name in names {
+         if name.count > lengthOfLongestName { lengthOfLongestName = name.count }
+      }
+      for (name, code) in zip(names, codeStrings) {
+         let numSpaces = lengthOfLongestName - name.count + 2
+         let space = String(repeating: " ", count: numSpaces)
+         print(name, space, code)
+      }
+      
+      
       print()
-      let _ = components.map { printComponent(comp: $0) }
       print("-------------------------------------------------------------------------------")
+      
+      // Summary
       let numFound = components.count
       print("\(numFound) component", terminator: "")
       print(numFound == 1 ? "" : "s")
       print()
    }
    
-   func printComponent(comp: AVAudioUnitComponent)
+   func componentNames(comp: AVAudioUnitComponent) -> (String, String)
    {
-      print(comp.manufacturerName, ": ", comp.name, separator: "", terminator: "")
-      
-      print("\t(", terminator: "")
-      printCodes(comp: comp)
-      print(")")
+      return (comp.manufacturerName, comp.name)
+      //      print(comp.manufacturerName, ": ", comp.name, separator: "", terminator: "")
+      //
+      //      print("\t(", terminator: "")
+      //      printCodes(comp: comp)
+      //      print(")")
    }
    
-   func printCodes(comp: AVAudioUnitComponent)
+   func componentCodes(comp: AVAudioUnitComponent) -> (String, String, String)
    {
       let desc = comp.audioComponentDescription
-      print(desc.componentManufacturer.string(), // string() is extension on OSType
-            desc.componentType.string(),
-            desc.componentSubType.string(), terminator: "")
+      return (desc.componentManufacturer.string(), // string() is extension on OSType
+         desc.componentType.string(),
+         desc.componentSubType.string())
    }
 }
 
