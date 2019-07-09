@@ -14,12 +14,12 @@ class AVAUComponents_Tests: XCTestCase {
    func testInit()
    {
       // All AUs
-      var comps = AVAUComponents()!
+      var comps = AVAUComponents()
       XCTAssert(comps.manu == 0 && comps.componentType == 0 && comps.subtype == 0)
       XCTAssert(comps.components.count > 10)
       
       // All Apple AUs
-      comps = AVAUComponents(manu: "appl")!
+      comps = AVAUComponents(manu: "appl")
       let appl = 1634758764
       XCTAssert(comps.manu == appl && comps.componentType == 0 && comps.subtype == 0)
       XCTAssert(comps.components.count > 10)
@@ -29,7 +29,7 @@ class AVAUComponents_Tests: XCTestCase {
       XCTAssert(nonAppleComponents.count == 0)
       
       // Apple: AUDynamicsProcessor (appl aufx dcmp)
-      comps = AVAUComponents(manu: "appl", componentType: "aufx", subtype: "dcmp")!
+      comps = AVAUComponents(manu: "appl", componentType: "aufx", subtype: "dcmp")
       let comp = comps.components[0]
       XCTAssert(comps.components.count == 1)
       XCTAssert(comp.manufacturerName == "Apple")
@@ -39,31 +39,10 @@ class AVAUComponents_Tests: XCTestCase {
          comps.subtype == "dcmp".osType())
       
       //
-      XCTAssert(AVAUComponents(manu: "SBI", componentType: "aufx") == nil)
+      XCTAssert(AVAUComponents(manu: "SBI", componentType: "hell").count == 0)
    }
    
-   // Test extension of String
-   func test_osType()
-   {
-      let codes: [String: OSType?] = [
-         "": nil, "a": nil, "ab": nil, "abc": nil, "abcde":nil,
-         "test": 1952805748, "appl": 1634758764
-      ]
-      for (string, number) in codes {
-         XCTAssert(string.osType() == number)
-      }
-   }
-   
-   // Test extesnsion of OSType (aka UInt32 aka FourCharCode)
-   func test_osTypeToString()
-   {
-      let codes: [OSType: String] = [
-         1952805748: "test", 1634758764: "appl"
-      ]
-      for (number, string) in codes {
-         XCTAssert(number.string() == string)
-      }
-   }
+
    
 }
 

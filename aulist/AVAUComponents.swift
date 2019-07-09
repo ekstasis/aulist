@@ -7,83 +7,78 @@
 //
 
 import AVFoundation
+import AudioToolbox
 
-/*
- See extensions of OSType and String at bottom of file
- */
 
 struct AVAUComponents
 {
+   // MARK: Properties
    let manu: OSType
    let componentType: OSType
    let subtype: OSType
-   
    let manager = AVAudioUnitComponentManager.shared()
-   let componentDescription: AudioComponentDescription
-   let components: [AVAudioUnitComponent]
+   var components: [AVAudioUnitComponent]
+   var count = 0
    
-   static let usageMessage = """
-\nUsage:  aulist manufacturer type subtype
-
-   Arguments can be "0" which doesn't filter by that criterion (showing components by any manufacturer, for instance)
-
-   Examples:
-   $ aulist appl aufx dcmp    <- a single plugin
-   $ aulist 0    aufx 0       <- all effect plugins
-   $ aulist appl 0    0       <- all apple plugins  \n
-"""
-   
-   init?(manu: String = "0", componentType: String = "0", subtype: String = "0")
+   // MARK: Functions
+   init(manu: String = "0", componentType: String = "0", subtype: String = "0")
    {
-      // init fails if an argument is given but is not 4 characters long
+      self.manu = manu == "0" ? 0 : manu.osType()!
+      self.componentType = componentType == "0" ? 0 : componentType.osType()!
+      self.subtype = subtype == "0" ? 0 : subtype.osType()!
       
-      if manu == "0" { self.manu = 0 }
-      else if let manuCode = manu.osType() { self.manu = manuCode }
-      else {
-         return nil
-      }
-      if componentType == "0" { self.componentType = 0 }
-      else if let componentTypeCode = componentType.osType() { self.componentType = componentTypeCode }
-      else {
-         return nil
-      }
-      if subtype == "0" { self.subtype = 0 }
-      else if let subtypeCode = subtype.osType() { self.subtype = subtypeCode }
-      else {
-         return nil
-      }
+      var componentDescription = AudioComponentDescription()
+      componentDescription.componentManufacturer = self.manu
+      componentDescription.componentType = self.componentType
+      componentDescription.componentSubType = self.subtype
+      componentDescription.componentFlags = 0
+      componentDescription.componentFlagsMask = 0
       
-      componentDescription = AudioComponentDescription(componentType: self.componentType, componentSubType: self.subtype,
-                                                       componentManufacturer: self.manu, componentFlags: 0, componentFlagsMask: 0)
+      componentDescription.componentFlags = AudioComponentFlags.sandboxSafe.rawValue
+      componentDescription.componentFlagsMask = AudioComponentFlags.sandboxSafe.rawValue
+      
+      //      print("componentDescription.componentManufacturer", componentDescription.componentManufacturer)
+      //      print("componentDescription.componentType", componentDescription.componentType)
+      //      print("componentDescription.componentSubType", componentDescription.componentSubType)
+      
       components = manager.components(matching: componentDescription)
+      count = components.count
+      components.sort()
    }
    
    func display()
    {
-      guard components.count != 0 else {
+      guard count >= 1 else {
          print("\nNo components found.\n")
-         exit(1)
+         return
       }
       
       // "Apple: DynamicsCompressor"
-      let nameStrings: [(String, String)] = components.map { componentNames(comp: $0) }
-      let names: [String] = nameStrings.map { "\($0): \($1)" }
+      let names: [(String, String)] = components.map { componentNames(comp: $0) }
+      let nameStrings: [String] = names.map { "\($0): \($1)" }
       
       // "( appl aufx dncp )"
       let codes: [(String, String, String)]  = components.map { componentCodes(comp: $0) }
       let codeStrings = codes.map { "( \($0) \($1) \($2) )" }
       
+      // "( 28838838 38883838 9939222 )"
+      let numbers: [(OSType, OSType, OSType)]  = components.map { codeNumbers(comp: $0) }
+      let numberStrings = numbers.map { "( \($0) \($1) \($2) )" }
+      
+      // "( -EW- aumu EwPl )  ( 759519021 1635085685 1165447276 )"
+      let fullStrings = zip(codeStrings, numberStrings).map { (str, num) in
+         return "\(str)  \(num)"
+      }
       var lengthOfLongestName = 0
-      for name in names {
+      for name in nameStrings {
          if name.count > lengthOfLongestName { lengthOfLongestName = name.count }
       }
-      for (name, code) in zip(names, codeStrings) {
+      for (name, code) in zip(nameStrings, fullStrings) {
          let numSpaces = lengthOfLongestName - name.count + 2
          let space = String(repeating: " ", count: numSpaces)
+         
          print(name, space, code)
       }
-      
-      
       print()
       print("-------------------------------------------------------------------------------")
       
@@ -97,19 +92,65 @@ struct AVAUComponents
    func componentNames(comp: AVAudioUnitComponent) -> (String, String)
    {
       return (comp.manufacturerName, comp.name)
-      //      print(comp.manufacturerName, ": ", comp.name, separator: "", terminator: "")
-      //
-      //      print("\t(", terminator: "")
-      //      printCodes(comp: comp)
-      //      print(")")
    }
    
    func componentCodes(comp: AVAudioUnitComponent) -> (String, String, String)
    {
       let desc = comp.audioComponentDescription
-      return (desc.componentManufacturer.string(), // string() is extension on OSType
-         desc.componentType.string(),
-         desc.componentSubType.string())
+      return (desc.componentManufacturer.fourCharCode(),  // string is extension of OSType
+         desc.componentType.fourCharCode(),
+         desc.componentSubType.fourCharCode())
    }
+   
+   func codeNumbers(comp: AVAudioUnitComponent) -> (OSType, OSType, OSType)
+   {
+      let desc = comp.audioComponentDescription
+      return (desc.componentManufacturer,
+              desc.componentType,
+              desc.componentSubType)
+   }
+   
+   // Mark: Usage Message
+   static let usageMessage = """
+
+   Usage:  aulist manufacturer type subtype
+
+   Arguments can be "0" which doesn't filter by that criterion (showing components by any manufacturer, for instance)
+
+   Examples:
+   $ aulist appl aufx dcmp    <- a single plugin
+   $ aulist 0    aufx 0       <- all effect plugins
+   $ aulist appl 0    0       <- all apple plugins  \n
+
+"""
 }
 
+/*
+ Alternative component lookup methods
+ 
+ var comp = AudioComponentFindNext(nil, &componentDescription)
+ var count = 0
+ 
+ while comp != nil {
+ var nextDescription = AudioComponentDescription()
+ AudioComponentGetDescription(comp!, &nextDescription)
+ print(nextDescription.componentManufacturer.string(), nextDescription.componentType.string(),
+ nextDescription.componentSubType.string(), nextDescription.componentFlags)
+ comp = AudioComponentFindNext(comp, &componentDescription)
+ count += 1
+ }
+ 
+ print("\n COUNT: \(count) \n")
+ 
+ let theManu = self.manu
+ components = manager.components(passingTest: { comp, stop in
+ print("Testing: \(comp.audioComponentDescription)")
+ print("AVAudioUnit.manufacturerName: \(comp.manufacturerName)")
+ if comp.audioComponentDescription.componentFlags == 2 {
+ return true
+ } else {
+ return comp.audioComponentDescription.componentManufacturer == theManu
+ }
+ })
+ 
+ */

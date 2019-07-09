@@ -7,23 +7,31 @@
 //
 
 import Foundation
+import AVFoundation
 
 
-let numArgs = CommandLine.argc
-let arguments = CommandLine.arguments
+let test = false
 
-if numArgs != 4 {
-   print(AVAUComponents.usageMessage)
-   exit(666)
-}
+if test {
+   print("TESTING")
+   let comps = AVAUComponents(manu: "0", componentType: "0", subtype: "0")
+   comps.display()
+   exit(0)
 
-if let comps = AVAUComponents(manu: arguments[1],
+} else
+{
+   let numArgs = CommandLine.argc
+   let arguments = CommandLine.arguments
+   
+   if numArgs != 4 {
+      print(AVAUComponents.usageMessage)
+      exit(666)
+   }
+   
+   let comps = AVAUComponents(manu: arguments[1],
                               componentType: arguments[2],
                               subtype: arguments[3])
-{
    comps.display()
-} else {
-   print(AVAUComponents.usageMessage)
+   
+   exit(0)
 }
-
-exit(0)
