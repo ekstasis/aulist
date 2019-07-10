@@ -126,31 +126,30 @@ struct AVAUComponents
 }
 
 /*
- Alternative component lookup methods
- 
- var comp = AudioComponentFindNext(nil, &componentDescription)
- var count = 0
- 
- while comp != nil {
- var nextDescription = AudioComponentDescription()
- AudioComponentGetDescription(comp!, &nextDescription)
- print(nextDescription.componentManufacturer.string(), nextDescription.componentType.string(),
- nextDescription.componentSubType.string(), nextDescription.componentFlags)
- comp = AudioComponentFindNext(comp, &componentDescription)
- count += 1
- }
- 
- print("\n COUNT: \(count) \n")
- 
- let theManu = self.manu
- components = manager.components(passingTest: { comp, stop in
- print("Testing: \(comp.audioComponentDescription)")
- print("AVAudioUnit.manufacturerName: \(comp.manufacturerName)")
- if comp.audioComponentDescription.componentFlags == 2 {
- return true
- } else {
- return comp.audioComponentDescription.componentManufacturer == theManu
- }
- })
- 
- */
+Alternative component lookup methods
+
+var comp = AudioComponentFindNext(nil, &componentDescription)
+var count = 0
+
+while comp != nil {
+   var nextDescription = AudioComponentDescription()
+   AudioComponentGetDescription(comp!, &nextDescription)
+   print(nextDescription.componentManufacturer.string(), nextDescription.componentType.string(),
+         nextDescription.componentSubType.string(), nextDescription.componentFlags)
+   comp = AudioComponentFindNext(comp, &componentDescription)
+   count += 1
+}
+
+print("\n COUNT: \(count) \n")
+
+let theManu = self.manu
+components = manager.components(passingTest: { comp, stop in
+   print("Testing: \(comp.audioComponentDescription)")
+   print("AVAudioUnit.manufacturerName: \(comp.manufacturerName)")
+   if comp.audioComponentDescription.componentFlags == 2 {
+      return true
+   } else {
+      return comp.audioComponentDescription.componentManufacturer == theManu
+   }
+})
+*/

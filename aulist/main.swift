@@ -14,6 +14,7 @@ let test = false
 
 if test {
    print("TESTING")
+   // list all components
    let comps = AVAUComponents(manu: "0", componentType: "0", subtype: "0")
    comps.display()
    exit(0)
