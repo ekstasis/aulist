@@ -9,7 +9,7 @@
 import AVFoundation
 import AudioToolbox
 
-
+/// A means to gather, store, and display AU Components
 struct AVAUComponents
 {
    // MARK: Properties
@@ -21,6 +21,13 @@ struct AVAUComponents
    var count = 0
    
    // MARK: Functions
+   
+   /// Gathers and stores the list of AU Components that match a given component description
+   /// - Parameters:
+   ///   - manu:  The unique vendor identifier, e.g., "appl".
+   ///   - componentType: Identifies the interface for the component, e.g,. "aufx".
+   ///   - subtype: Indicates the purpose of a component, e.g., "gate".
+   ///
    init(manu: String = "0", componentType: String = "0", subtype: String = "0")
    {
       self.manu = manu == "0" ? 0 : manu.osType()!
@@ -33,14 +40,7 @@ struct AVAUComponents
       componentDescription.componentSubType = self.subtype
       componentDescription.componentFlags = 0
       componentDescription.componentFlagsMask = 0
-      
-      componentDescription.componentFlags = AudioComponentFlags.sandboxSafe.rawValue
-      componentDescription.componentFlagsMask = AudioComponentFlags.sandboxSafe.rawValue
-      
-      //      print("componentDescription.componentManufacturer", componentDescription.componentManufacturer)
-      //      print("componentDescription.componentType", componentDescription.componentType)
-      //      print("componentDescription.componentSubType", componentDescription.componentSubType)
-      
+
       components = manager.components(matching: componentDescription)
       count = components.count
       components.sort()
@@ -69,6 +69,7 @@ struct AVAUComponents
       let fullStrings = zip(codeStrings, numberStrings).map { (str, num) in
          return "\(str)  \(num)"
       }
+      
       var lengthOfLongestName = 0
       for name in nameStrings {
          if name.count > lengthOfLongestName { lengthOfLongestName = name.count }
@@ -76,7 +77,7 @@ struct AVAUComponents
       for (name, code) in zip(nameStrings, fullStrings) {
          let numSpaces = lengthOfLongestName - name.count + 2
          let space = String(repeating: " ", count: numSpaces)
-         
+         // "Tokyo Dawn Labs: TDR VOS SlickEQ               ( Tdrl aufx Td10 )  ( 1415869036 1635083896 1415852336 )"
          print(name, space, code)
       }
       print()
@@ -97,7 +98,7 @@ struct AVAUComponents
    func componentCodes(comp: AVAudioUnitComponent) -> (String, String, String)
    {
       let desc = comp.audioComponentDescription
-      return (desc.componentManufacturer.fourCharCode(),  // string is extension of OSType
+      return (desc.componentManufacturer.fourCharCode(),
          desc.componentType.fourCharCode(),
          desc.componentSubType.fourCharCode())
    }

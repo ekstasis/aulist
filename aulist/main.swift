@@ -19,8 +19,7 @@ if test {
    comps.display()
    exit(0)
 
-} else
-{
+} else {
    let numArgs = CommandLine.argc
    let arguments = CommandLine.arguments
    
@@ -29,10 +28,10 @@ if test {
       exit(666)
    }
    
-   let comps = AVAUComponents(manu: arguments[1],
+   let components = AVAUComponents(manu: arguments[1],
                               componentType: arguments[2],
                               subtype: arguments[3])
-   comps.display()
+   components.display()
    
    exit(0)
 }
