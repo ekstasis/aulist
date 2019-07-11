@@ -38,7 +38,7 @@ extension OSType
     
     - Returns: A String
     */
-   func fourCharCode() -> String {
+   func fourLetters() -> String {
       var string = ""
       string.append(Character(UnicodeScalar(self >> 24 & 0xFF)!))
       string.append(Character(UnicodeScalar(self >> 16 & 0xFF)!))

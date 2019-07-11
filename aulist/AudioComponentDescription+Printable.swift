@@ -11,6 +11,6 @@ import AVFoundation
 
 extension AudioComponentDescription : CustomStringConvertible {
    public var description: String {
-      return "\(self.componentManufacturer.fourCharCode()) / \(self.componentType) / \(self.componentSubType) :: \(self.componentFlags), \(self.componentFlagsMask)"
+      return "\(self.componentManufacturer.fourLetters()) / \(self.componentType) / \(self.componentSubType) :: \(self.componentFlags), \(self.componentFlagsMask)"
    }
 }

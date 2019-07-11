@@ -28,7 +28,7 @@ class OSType_Conversion_Tests: XCTestCase {
          1952805748: "test", 1634758764: "appl", 1869968416: "out "
       ]
       for (number, string) in codes {
-         XCTAssert(number.fourCharCode() == string)
+         XCTAssert(number.fourLetters() == string)
       }
    }
 }

@@ -30,6 +30,7 @@ struct AVAUComponents
    ///
    init(manu: String = "0", componentType: String = "0", subtype: String = "0")
    {
+      // convert string arguments to OSType
       self.manu = manu == "0" ? 0 : manu.osType()!
       self.componentType = componentType == "0" ? 0 : componentType.osType()!
       self.subtype = subtype == "0" ? 0 : subtype.osType()!
@@ -98,9 +99,9 @@ struct AVAUComponents
    func componentCodes(comp: AVAudioUnitComponent) -> (String, String, String)
    {
       let desc = comp.audioComponentDescription
-      return (desc.componentManufacturer.fourCharCode(),
-         desc.componentType.fourCharCode(),
-         desc.componentSubType.fourCharCode())
+      return (desc.componentManufacturer.fourLetters(),
+         desc.componentType.fourLetters(),
+         desc.componentSubType.fourLetters())
    }
    
    func codeNumbers(comp: AVAudioUnitComponent) -> (OSType, OSType, OSType)
