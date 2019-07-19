@@ -30,8 +30,10 @@ class Option_Tests: XCTestCase {
         XCTAssertNotNil(goodOptions1)
         XCTAssert(goodOptions1.options.count == 1)
         XCTAssert(goodOptions1.options[0].name == "no_apple")
-        XCTAssert(goodOptions1.arguments.count == 1)
+        XCTAssert(goodOptions1.arguments.count == 3)
         XCTAssert(goodOptions1.arguments[0] == "appl")
+        XCTAssert(goodOptions1.arguments[1] == "0")
+        XCTAssert(goodOptions1.arguments[2] == "0")
     }
     
     func testMaxOptionLength() {

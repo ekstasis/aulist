@@ -9,13 +9,9 @@
 import Foundation
 
 
-struct Option : CustomStringConvertible {
+struct Option {
     let name: String
     let desc: String
-    
-    var description: String {
-        return "--\(name)\t \(desc)"
-    }
 }
 
 
@@ -28,7 +24,7 @@ struct Options : CustomStringConvertible {
         Option(name: "no_views", desc: "Don't show AUs of type 'auvw'")
     ]
     
-    /// An array of Options, representing command line arguments beginning with "--", e.g., "--no_apple"
+    /// An array of Options, representing command line arguments beginning with "--", e.g., "--no_apple" (hyphens are stripped out)
     var options = [Option]()
     
     /// An array of arguments, representing command line arguments not beginnning with "--".
@@ -39,6 +35,11 @@ struct Options : CustomStringConvertible {
     init?(cliArgs: [String]) {
         if !parse(commandline: cliArgs) {
             return nil
+        }
+        var numMissingArgs = 3 - self.arguments.count
+        while (numMissingArgs > 0) {
+            arguments.append("0")
+            numMissingArgs -= 1
         }
     }
     

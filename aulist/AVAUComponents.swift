@@ -19,22 +19,20 @@ struct AVAUComponents
     let manager = AVAudioUnitComponentManager.shared()
     var components: [AVAudioUnitComponent]
     var count = 0
-    let options: Options?
+    let options: Options
     
     // MARK: Functions
     
     /// Gathers and stores the list of AU Components that match a given component description
     /// - Parameters:
-    ///   - manu:  The unique vendor identifier, e.g., "appl".
-    ///   - componentType: Identifies the interface for the component, e.g,. "aufx".
-    ///   - subtype: Indicates the purpose of a component, e.g., "gate".
-    ///
+    ///   - options:  an Options struct containing options and arguments, e.g., "--no_apple" and "aufx"
     init(options: Options)
     {
+        self.options = options
         let manu = options.arguments[0]
         let componentType = options.arguments[1]
         let subtype = options.arguments[2]
-        self.options = options
+        
         // convert string arguments to OSType
         self.manu = manu == "0" ? 0 : manu.osType()!
         self.componentType = componentType == "0" ? 0 : componentType.osType()!

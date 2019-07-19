@@ -12,12 +12,19 @@ import AVFoundation
 
 let arguments = Array<String>(CommandLine.arguments.dropFirst())
 
-guard let options = Options(cliArgs: arguments) else {
-    AVAUComponents.printUsageMessage()
-    exit(1)
+var options: Options? = nil
+
+if arguments.count == 0 {
+    options = Options.defaultOptions
+} else {
+    options = Options(cliArgs: arguments)
+    if options == nil {
+        AVAUComponents.printUsageMessage()
+        exit(1)
+    }
 }
 
-let components = AVAUComponents(options: options)
+let components = AVAUComponents(options: options!)
 components.display()
 
 exit(0)
