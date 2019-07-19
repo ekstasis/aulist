@@ -39,4 +39,11 @@ class Option_Tests: XCTestCase {
     func testMaxOptionLength() {
         XCTAssertTrue(Options.maxOptionLength == 10)
     }
+    
+    func testIsSet() {
+        let options = Options(cliArgs: ["--no_apple", "--no_views"])!
+        XCTAssertTrue(options.isSet(option: "no_apple"))
+        XCTAssertTrue(options.isSet(option: "no_views"))
+        XCTAssertFalse(options.isSet(option: "no_ints"))
+    }
 }

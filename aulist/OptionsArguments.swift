@@ -43,6 +43,15 @@ struct Options : CustomStringConvertible {
         }
     }
     
+    func isSet(option: String) -> Bool {
+        for opt in options {
+            if opt.name == option {
+                return true
+            }
+        }
+        return false
+    }
+    
     mutating func parse(commandline: [String]) -> Bool {
         var foundBadOption = false
         for arg in commandline {

@@ -66,12 +66,20 @@ struct AVAUComponents
         let codeStrings = codes.map { "( \($0) \($1) \($2) )" }
         
         // "( 28838838 38883838 9939222 )"
-        let numbers: [(OSType, OSType, OSType)]  = components.map { codeNumbers(comp: $0) }
-        let numberStrings = numbers.map { "( \($0) \($1) \($2) )" }
+        var numberStrings = [String]()
+        if !options.isSet(option: "no_ints") {
+            let numbers: [(OSType, OSType, OSType)]  = components.map { codeNumbers(comp: $0) }
+            numberStrings = numbers.map { "( \($0) \($1) \($2) )" }
+        }
         
         // "( -EW- aumu EwPl )  ( 759519021 1635085685 1165447276 )"
-        let fullStrings = zip(codeStrings, numberStrings).map { (str, num) in
-            return "\(str)  \(num)"
+        var fullStrings = [String]()
+        if options.isSet(option: "no_ints") {
+            fullStrings = codeStrings
+        } else {
+            fullStrings = zip(codeStrings, numberStrings).map { (str, num) in
+                return "\(str)  \(num)"
+            }
         }
         
         var lengthOfLongestName = 0
@@ -81,7 +89,7 @@ struct AVAUComponents
         for (name, code) in zip(nameStrings, fullStrings) {
             let numSpaces = lengthOfLongestName - name.count + 2
             let space = String(repeating: " ", count: numSpaces)
-            // "Tokyo Dawn Labs: TDR VOS SlickEQ               ( Tdrl aufx Td10 )  ( 1415869036 1635083896 1415852336 )"
+            // "Tokyo Dawn Labs: TDR VOS SlickEQ   ( Tdrl aufx Td10 )  ( 1415869036 1635083896 1415852336 )"
             print(name, space, code)
         }
         print()
