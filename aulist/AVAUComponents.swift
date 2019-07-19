@@ -21,7 +21,7 @@ struct AVAUComponents
     var count = 0
     let options: Options
     
-    // MARK: Functions
+    // MARK: - Functions
     
     /// Gathers and stores the list of AU Components that match a given component description
     /// - Parameters:
@@ -50,6 +50,10 @@ struct AVAUComponents
         components.sort()
     }
     
+    // MARK: display() and helpers
+
+    /// For each AU in self.components, print manufacturer, name, string codes, and optionally numerical codes, e.g.:
+    /// "Apple: DynamicsCompressor   ( appl aufx dncp )   ( 28838838 38883838 9939222 )"
     func display()
     {
         guard count >= 1 else {
@@ -74,7 +78,7 @@ struct AVAUComponents
         
         // "( -EW- aumu EwPl )  ( 759519021 1635085685 1165447276 )"
         var fullStrings = [String]()
-        if options.isSet(option: "no_ints") {
+        if options.isSet(option: "no_ints") { // option to leave off integer version of codes
             fullStrings = codeStrings
         } else {
             fullStrings = zip(codeStrings, numberStrings).map { (str, num) in
@@ -82,16 +86,18 @@ struct AVAUComponents
             }
         }
         
-        var lengthOfLongestName = 0
-        for name in nameStrings {
-            if name.count > lengthOfLongestName { lengthOfLongestName = name.count }
+        let longestName = nameStrings.max {
+            $0.count < $1.count
         }
-        for (name, code) in zip(nameStrings, fullStrings) {
+        let lengthOfLongestName = longestName?.count ?? 0
+        
+        let displayLines = zip(nameStrings, fullStrings).map { (name: String, code: String) -> String in
             let numSpaces = lengthOfLongestName - name.count + 2
             let space = String(repeating: " ", count: numSpaces)
-            // "Tokyo Dawn Labs: TDR VOS SlickEQ   ( Tdrl aufx Td10 )  ( 1415869036 1635083896 1415852336 )"
-            print(name, space, code)
+            return "\(name) \(space) \(code)"
         }
+
+        displayLines.forEach { print($0) }
         print()
         print("-------------------------------------------------------------------------------")
         
@@ -123,7 +129,7 @@ struct AVAUComponents
                 desc.componentSubType)
     }
     
-    // Mark: Usage Message
+    // MARK: Usage Message
     static func printUsageMessage() {
         let message = """
         
