@@ -10,18 +10,19 @@ import Foundation
 import AVFoundation
 
 
-let arguments = Array<String>(CommandLine.arguments.dropFirst())
+let arguments = Array(CommandLine.arguments.dropFirst())
 
 var options: Options? = nil
 
-if arguments.count == 0 {
-    options = Options.defaultOptions
+print("\nCommand Line Arguments:  \(arguments)\n")
+
+options = Options(cliArgs: arguments)
+
+if options == nil {
+    AVAUComponents.printUsageMessage()
+    exit(1)
 } else {
-    options = Options(cliArgs: arguments)
-    if options == nil {
-        AVAUComponents.printUsageMessage()
-        exit(1)
-    }
+    print(options!, "\n")
 }
 
 let components = AVAUComponents(options: options!)
