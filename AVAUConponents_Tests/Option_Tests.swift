@@ -9,15 +9,7 @@
 import XCTest
 
 class Option_Tests: XCTestCase {
-    
-    //    override func setUp() {
-    //        // Put setup code here. This method is called before the invocation of each test method in the class.
-    //    }
-    //
-    //    override func tearDown() {
-    //        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    //    }
-    
+
     func testBadOptions() {
         let bad1 = ["--no_apple", "--foo", "foo"]
         let badOptions1 = Options(cliArgs: bad1)
@@ -29,7 +21,7 @@ class Option_Tests: XCTestCase {
         let goodOptions1 = Options(cliArgs: good1)!
         XCTAssertNotNil(goodOptions1)
         XCTAssert(goodOptions1.options.count == 1)
-        XCTAssert(goodOptions1.options[0].name == "no_apple")
+        XCTAssert(goodOptions1.options[0].rawValue == "no_apple")
         XCTAssert(goodOptions1.arguments.count == 3)
         XCTAssert(goodOptions1.arguments[0] == "appl")
         XCTAssert(goodOptions1.arguments[1] == "0")
@@ -37,13 +29,22 @@ class Option_Tests: XCTestCase {
     }
     
     func testMaxOptionLength() {
-        XCTAssertTrue(Options.maxOptionLength == 10)
+        XCTAssertTrue(Option.maxOptionLength == 8)
     }
     
     func testIsSet() {
         let options = Options(cliArgs: ["--no_apple", "--no_views"])!
-        XCTAssertTrue(options.isSet(option: "no_apple"))
-        XCTAssertTrue(options.isSet(option: "no_views"))
-        XCTAssertFalse(options.isSet(option: "no_ints"))
+        XCTAssertTrue(options.isSet(option: .no_apple))
+        XCTAssertTrue(options.isSet(option: .no_views))
+        XCTAssertFalse(options.isSet(option: .no_ints))
+    }
+    
+    func testNameAndDesc() {
+        let tests: [(String, String)] = [ ("no_apple", Option.no_apple.rawValue),
+                                          ("no_ints", Option.no_ints.rawValue),
+                                          ("Don't show AUs of type 'auvw'", Option.no_views.description) ]
+        tests.forEach {
+            XCTAssertEqual($0.0, $0.1)
+        }
     }
 }

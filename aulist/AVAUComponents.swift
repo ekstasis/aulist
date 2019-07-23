@@ -9,7 +9,12 @@
 import AVFoundation
 import AudioToolbox
 
-/// A means to gather, store, and list AU Components and their codes
+
+/// Gathers, stores, and lists AU Components and their codes.
+///
+/// - Initialize with Options struct to find and store list of components.
+/// - The Options struct has options as well as componentDescription criteria to match.
+/// - Use display() to list the plugins with their codes.
 struct AVAUComponents
 {
     // MARK: Properties
@@ -23,9 +28,10 @@ struct AVAUComponents
     
     // MARK: - Functions
     
+  
     /// Gathers and stores the list of AU Components that match a given component description
-    /// - Parameters:
-    ///   - options:  an Options struct containing options and arguments, e.g., "--no_apple" and "aufx"
+    ///
+    ///  - Parameter options:  an Options struct containing options and arguments, e.g., "--no_apple" and "aufx"
     init(options: Options)
     {
         self.options = options
@@ -51,9 +57,14 @@ struct AVAUComponents
     }
     
     // MARK: display() and helpers
-
+    
+    /// Display the found components with their codes
+    ///
     /// For each AU in self.components, print manufacturer, name, string codes, and optionally numerical codes, e.g.:
-    /// "Apple: DynamicsCompressor   ( appl aufx dncp )   ( 28838838 38883838 9939222 )"
+    ///
+    ///     Apple: DynamicsCompressor   ( appl aufx dncp )   ( 28838838 38883838 9939222 )
+    ///
+    /// Option "no_ints" will cause the numeric codes to not be displayed.
     func display()
     {
         guard count >= 1 else {
@@ -71,14 +82,14 @@ struct AVAUComponents
         
         // "( 28838838 38883838 9939222 )"
         var numberStrings = [String]()
-        if !options.isSet(option: "no_ints") {
+        if !options.isSet(option: .no_ints) {
             let numbers: [(OSType, OSType, OSType)]  = components.map { codeNumbers(comp: $0) }
             numberStrings = numbers.map { "( \($0) \($1) \($2) )" }
         }
         
         // "( -EW- aumu EwPl )  ( 759519021 1635085685 1165447276 )"
         var fullStrings = [String]()
-        if options.isSet(option: "no_ints") { // option to leave off integer version of codes
+        if options.isSet(option: .no_ints) { // option to leave off integer version of codes
             fullStrings = codeStrings
         } else {
             fullStrings = zip(codeStrings, numberStrings).map { (str, num) in
@@ -96,7 +107,7 @@ struct AVAUComponents
             let space = String(repeating: " ", count: numSpaces)
             return "\(name) \(space) \(code)"
         }
-
+        
         displayLines.forEach { print($0) }
         print()
         print("-------------------------------------------------------------------------------")
@@ -132,10 +143,10 @@ struct AVAUComponents
     // MARK: Usage Message
     static func printUsageMessage() {
         let message = """
-        
         Usage:  aulist [options] manufacturer type subtype
         
-        \(Options.availableOptionsString())
+        \(Option.validOptions)
+        
         Arguments can be "0" which doesn't filter by that criterion (showing components by any manufacturer, for instance)
         
         Examples:

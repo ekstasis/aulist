@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7927E09122A45D0400E94EB6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7927E09022A45D0400E94EB6 /* AudioToolbox.framework */; };
-		7976FA1322E189F400C81AD8 /* OptionsArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976FA1222E189F400C81AD8 /* OptionsArguments.swift */; };
-		7976FA1422E189F400C81AD8 /* OptionsArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976FA1222E189F400C81AD8 /* OptionsArguments.swift */; };
 		7976FA1622E1AE5000C81AD8 /* Option_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976FA1522E1AE5000C81AD8 /* Option_Tests.swift */; };
 		7999B55922A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7999B55822A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift */; };
 		7999B55B22A4529E00C4838E /* AudioComponentDescription+Printable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7999B55A22A4529E00C4838E /* AudioComponentDescription+Printable.swift */; };
 		79B301DF22D1549600EC7640 /* OSType_Conversion_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B301DE22D1549600EC7640 /* OSType_Conversion_Tests.swift */; };
+		79B56ECF22E67F0B00950EE7 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B56ECE22E67F0B00950EE7 /* Options.swift */; };
+		79B56ED022E67F0B00950EE7 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B56ECE22E67F0B00950EE7 /* Options.swift */; };
 		79C32E68227B5F15008ECBCD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E67227B5F15008ECBCD /* main.swift */; };
 		79C32E6F227B6129008ECBCD /* AVAUComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E6E227B6129008ECBCD /* AVAUComponents.swift */; };
 		79C32E77227B8A72008ECBCD /* AVAUComponents_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E76227B8A72008ECBCD /* AVAUComponents_Tests.swift */; };
@@ -37,11 +37,11 @@
 
 /* Begin PBXFileReference section */
 		7927E09022A45D0400E94EB6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		7976FA1222E189F400C81AD8 /* OptionsArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsArguments.swift; sourceTree = "<group>"; };
 		7976FA1522E1AE5000C81AD8 /* Option_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option_Tests.swift; sourceTree = "<group>"; };
 		7999B55822A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioUnitComponent+Comparable.swift"; sourceTree = "<group>"; };
 		7999B55A22A4529E00C4838E /* AudioComponentDescription+Printable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioComponentDescription+Printable.swift"; sourceTree = "<group>"; };
 		79B301DE22D1549600EC7640 /* OSType_Conversion_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSType_Conversion_Tests.swift; sourceTree = "<group>"; };
+		79B56ECE22E67F0B00950EE7 /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		79C32E64227B5F15008ECBCD /* aulist */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = aulist; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C32E67227B5F15008ECBCD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		79C32E6E227B6129008ECBCD /* AVAUComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAUComponents.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 				79C32E7D227BF9B7008ECBCD /* OSType_Conversion_Extensions.swift */,
 				7999B55822A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift */,
 				7999B55A22A4529E00C4838E /* AudioComponentDescription+Printable.swift */,
-				7976FA1222E189F400C81AD8 /* OptionsArguments.swift */,
+				79B56ECE22E67F0B00950EE7 /* Options.swift */,
 			);
 			path = aulist;
 			sourceTree = "<group>";
@@ -214,8 +214,8 @@
 			files = (
 				79C32E7E227BF9B7008ECBCD /* OSType_Conversion_Extensions.swift in Sources */,
 				7999B55B22A4529E00C4838E /* AudioComponentDescription+Printable.swift in Sources */,
+				79B56ECF22E67F0B00950EE7 /* Options.swift in Sources */,
 				7999B55922A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift in Sources */,
-				7976FA1322E189F400C81AD8 /* OptionsArguments.swift in Sources */,
 				79C32E6F227B6129008ECBCD /* AVAUComponents.swift in Sources */,
 				79C32E68227B5F15008ECBCD /* main.swift in Sources */,
 			);
@@ -228,7 +228,7 @@
 				79C32E7F227BFA30008ECBCD /* OSType_Conversion_Extensions.swift in Sources */,
 				79F138FB22CFA3780021105C /* AVAudioUnitComponent+Comparable.swift in Sources */,
 				79C32E7C227B8B67008ECBCD /* AVAUComponents.swift in Sources */,
-				7976FA1422E189F400C81AD8 /* OptionsArguments.swift in Sources */,
+				79B56ED022E67F0B00950EE7 /* Options.swift in Sources */,
 				79C32E77227B8A72008ECBCD /* AVAUComponents_Tests.swift in Sources */,
 				79B301DF22D1549600EC7640 /* OSType_Conversion_Tests.swift in Sources */,
 				7976FA1622E1AE5000C81AD8 /* Option_Tests.swift in Sources */,
