@@ -60,6 +60,10 @@ public struct Options : CustomStringConvertible {
         
         options = opts.compactMap { Option(rawValue: $0) }
         
+        if options.contains(.help) {           
+            return nil
+        }
+        
         if options.count < opts.count { return nil }  // unknown argument = fail, print usage
 
         // arguments:  everything else

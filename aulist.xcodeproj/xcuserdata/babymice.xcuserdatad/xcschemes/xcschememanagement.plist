@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Release: Tdrl aufx.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>aulist (Tdrl aufx).xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -22,17 +27,17 @@
 		<key>aulist --foo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>9</integer>
 		</dict>
-		<key>aulist --nancy goofball.xcscheme</key>
+		<key>aulist --help.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>10</integer>
 		</dict>
 		<key>aulist --no_apple 0 aufx 0.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>8</integer>
 		</dict>
 		<key>aulist --no_ints 0 auvw.xcscheme</key>
 		<dict>
