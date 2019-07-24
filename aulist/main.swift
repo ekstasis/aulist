@@ -14,16 +14,22 @@ let arguments = Array(CommandLine.arguments.dropFirst())
 
 var options: Options? = nil
 
-print("\nCommand Line Arguments:  \(arguments)\n")
+#if DEBUG
+print("\nCommand Line Arguments:  \(arguments)")
+#endif
+
+print()
 
 options = Options(cliArgs: arguments)
 
 if options == nil {
     AVAUComponents.printUsageMessage()
     exit(1)
-} else {
-    print(options!, "\n")
 }
+
+#if DEBUG
+print(options!, "\n")
+#endif
 
 let components = AVAUComponents(options: options!)
 components.display()

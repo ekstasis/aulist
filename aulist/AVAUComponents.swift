@@ -150,9 +150,11 @@ struct AVAUComponents
         Arguments can be "0" which doesn't filter by that criterion (showing components by any manufacturer, for instance)
         
         Examples:
-        $ aulist appl aufx dcmp    <- a single plugin
-        $ aulist 0    aufx 0       <- all effect plugins
-        $ aulist appl 0    0       <- all apple plugins  \n
+        
+        * aulist                    <- all plugins (missing trailing args replaced with 0s)
+        * aulist appl aufx dcmp     <- a single plugin
+        * aulist 0    aufx 0        <- all effect plugins (last 0 optional)
+        * aulist appl 0    0        <- all apple plugins (last two 0s optional)  \n
         
         """
         print(message)

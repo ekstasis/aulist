@@ -20,18 +20,20 @@
 		79C32E7C227B8B67008ECBCD /* AVAUComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E6E227B6129008ECBCD /* AVAUComponents.swift */; };
 		79C32E7E227BF9B7008ECBCD /* OSType_Conversion_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E7D227BF9B7008ECBCD /* OSType_Conversion_Extensions.swift */; };
 		79C32E7F227BFA30008ECBCD /* OSType_Conversion_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E7D227BF9B7008ECBCD /* OSType_Conversion_Extensions.swift */; };
+		79E3AEB122E7C81B00A9C571 /* aulist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79C32E64227B5F15008ECBCD /* aulist */; };
 		79F138FB22CFA3780021105C /* AVAudioUnitComponent+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7999B55822A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		79C32E62227B5F15008ECBCD /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			buildActionMask = 12;
+			dstPath = /Users/babymice/bin;
 			dstSubfolderSpec = 0;
 			files = (
+				79E3AEB122E7C81B00A9C571 /* aulist in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -49,6 +51,7 @@
 		79C32E76227B8A72008ECBCD /* AVAUComponents_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAUComponents_Tests.swift; sourceTree = "<group>"; };
 		79C32E78227B8A72008ECBCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79C32E7D227BF9B7008ECBCD /* OSType_Conversion_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSType_Conversion_Extensions.swift; sourceTree = "<group>"; };
+		79E3AEAF22E7BF7600A9C571 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,7 @@
 		79C32E66227B5F15008ECBCD /* aulist */ = {
 			isa = PBXGroup;
 			children = (
+				79E3AEAF22E7BF7600A9C571 /* README.md */,
 				79C32E67227B5F15008ECBCD /* main.swift */,
 				79C32E6E227B6129008ECBCD /* AVAUComponents.swift */,
 				79C32E7D227BF9B7008ECBCD /* OSType_Conversion_Extensions.swift */,
