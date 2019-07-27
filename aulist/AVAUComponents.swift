@@ -24,24 +24,31 @@ struct AVAUComponents
     let manager = AVAudioUnitComponentManager.shared()
     var components: [AVAudioUnitComponent]
     var count = 0
-    let options: Options
+    let options: Options?
     
     // MARK: - Functions
     
   
     /// Gathers and stores the list of AU Components that match a given component description
     ///
-    ///  - Parameter options:  an Options struct containing options and arguments, e.g., "--no_apple" and "aufx"
-    init(options: Options)
+    ///  - Parameter options:  an Options struct containing options and arguments, e.g., "--no_system" and "aufx"
+    init(options: Options?)
     {
         self.options = options
-        let manu = options.arguments[0]
-        let componentType = options.arguments[1]
-        let subtype = options.arguments[2]
         
+        var manu = "0"
+        var componentType = "0"
+        var subtype = "0"
+        
+        if let opts = self.options {
+            manu = opts.arguments[0]
+            componentType = opts.arguments[1]
+            subtype = opts.arguments[2]
+        }
+
         // convert string arguments to OSType
         self.manu = manu == "0" ? 0 : manu.osType()!
-        self.componentType = componentType == "0" ? 0 : componentType.osType()!
+        self.componentType = (componentType == "0") ? 0 : componentType.osType()!
         self.subtype = subtype == "0" ? 0 : subtype.osType()!
         
         var componentDescription = AudioComponentDescription()
@@ -51,7 +58,9 @@ struct AVAUComponents
         componentDescription.componentFlags = 0
         componentDescription.componentFlagsMask = 0
         
-        components = manager.components(matching: componentDescription)
+        components = manager.components(matching: componentDescription).filter {
+               return options?.filter($0) ?? true
+        }
         count = components.count
         components.sort()
     }
@@ -80,18 +89,14 @@ struct AVAUComponents
         let codes: [(String, String, String)]  = components.map { componentCodes(comp: $0) }
         let codeStrings = codes.map { "( \($0) \($1) \($2) )" }
         
-        // "( 28838838 38883838 9939222 )"
-        var numberStrings = [String]()
-        if !options.isSet(option: .no_ints) {
-            let numbers: [(OSType, OSType, OSType)]  = components.map { codeNumbers(comp: $0) }
-            numberStrings = numbers.map { "( \($0) \($1) \($2) )" }
-        }
-        
-        // "( -EW- aumu EwPl )  ( 759519021 1635085685 1165447276 )"
         var fullStrings = [String]()
-        if options.isSet(option: .no_ints) { // option to leave off integer version of codes
+        if let opts = options, opts.isSet(option: .no_ints) { // option to leave off integer version of codes
+            // "( -EW- aumu EwPl )
             fullStrings = codeStrings
         } else {
+            // "( -EW- aumu EwPl )  ( 759519021 1635085685 1165447276 )"
+            let numbers: [(OSType, OSType, OSType)]  = components.map { codeNumbers(comp: $0) }
+            let numberStrings = numbers.map { "( \($0) \($1) \($2) )" }
             fullStrings = zip(codeStrings, numberStrings).map { (str, num) in
                 return "\(str)  \(num)"
             }

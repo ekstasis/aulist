@@ -6,7 +6,7 @@ Usage:  aulist manufacturer type subtype
 
 Options:
     --help        Print usage message
-    --no_apple    Show only 3rd-party plugins
+    --no_system   Don't show system plugins (Manufacturer = "Apple", e.g., "appl" and "sys")
     --no_ints     Only show codes as strings; no integers (OSTypes)
     --no_views    Don't show AUs of type 'auvw'
 

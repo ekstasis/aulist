@@ -7,17 +7,36 @@
 //
 
 import Foundation
+import AVFoundation
 
 
 public enum Option: String, CaseIterable {
 
-    case help, no_apple, no_ints, no_views
+    case help, no_system, no_ints, no_views
     
     static let descriptions: [Option: String] = [
         .help:          "Print usage message",
-        .no_apple:      "Show only 3rd-party plugins",
+        .no_system:      "Show only 3rd-party plugins",
         .no_ints:       "Only show codes as strings; no integers",
         .no_views:      "Don't show AUs of type 'auvw'"
+    ]
+    
+    typealias FiltClosure = (AVAudioUnitComponent) -> Bool
+    
+    /// Closures that return false if audio component should be filtered out;  true = "should keep"
+    ///
+    /// Only some switches are filters, so closure is optional.
+    static let filterClosures: [Option: FiltClosure?] = [
+        .help: nil,
+        .no_ints: nil,
+        .no_system: { comp in
+            let manu = comp.audioComponentDescription.componentManufacturer.fourLetters()
+            return (manu != "appl" && manu != "sys ")
+        },
+        .no_views: { comp in
+            let type = comp.audioComponentDescription.componentType.fourLetters()
+            return type != "auvw"
+        }
     ]
     
     var name: String {
@@ -45,7 +64,7 @@ public enum Option: String, CaseIterable {
 
 
 public struct Options : CustomStringConvertible {
-    var options = [Option]()  // e.g., "--no_apple"
+    var options = [Option]()  // e.g., "--no_system"
     var arguments = [String]() // e.g., "appl", "aufx"
     
     init?(cliArgs: [String]) {
@@ -80,7 +99,28 @@ public struct Options : CustomStringConvertible {
     func isSet(option: Option) -> Bool {
         return options.contains(option)
     }
-   
+    
+    
+    func filter(_ comp: AVAudioUnitComponent) -> Bool {
+        let closures = options.compactMap { option in
+            // TODO:  Not handling if option doesn't exist
+            return Option.filterClosures[option]!
+        }
+
+        for closure in closures {
+            if !closure(comp) { return false }
+        }
+        
+        return true
+    }
+
+//    
+//    // .no_views option:  filter out type = "auvw"
+//    let noviews_option_is_set = options?.isSet(option: .no_views) ?? false
+//    let isView = $0.audioComponentDescription.componentType.fourLetters() == "auvw"
+//    if (noviews_option_is_set && isView) { return false }
+//
+
     /// The list of set options and their descriptions
     func optionsString() -> String {
         var string = ""

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7927E09122A45D0400E94EB6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7927E09022A45D0400E94EB6 /* AudioToolbox.framework */; };
+		795FC4C322EBC14A00E1604F /* AudioComponentDescription+Printable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7999B55A22A4529E00C4838E /* AudioComponentDescription+Printable.swift */; };
 		7976FA1622E1AE5000C81AD8 /* Option_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976FA1522E1AE5000C81AD8 /* Option_Tests.swift */; };
 		7999B55922A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7999B55822A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift */; };
 		7999B55B22A4529E00C4838E /* AudioComponentDescription+Printable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7999B55A22A4529E00C4838E /* AudioComponentDescription+Printable.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		7927E09022A45D0400E94EB6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		795FC4C422EBDFE500E1604F /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
 		7976FA1522E1AE5000C81AD8 /* Option_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option_Tests.swift; sourceTree = "<group>"; };
 		7999B55822A44A9300C4838E /* AVAudioUnitComponent+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioUnitComponent+Comparable.swift"; sourceTree = "<group>"; };
 		7999B55A22A4529E00C4838E /* AudioComponentDescription+Printable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioComponentDescription+Printable.swift"; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		79C32E5B227B5F15008ECBCD = {
 			isa = PBXGroup;
 			children = (
+				795FC4C422EBDFE500E1604F /* TODO.rtf */,
 				79C32E66227B5F15008ECBCD /* aulist */,
 				79C32E75227B8A72008ECBCD /* AVAUConponents_Tests */,
 				79C32E65227B5F15008ECBCD /* Products */,
@@ -230,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79C32E7F227BFA30008ECBCD /* OSType_Conversion_Extensions.swift in Sources */,
+				795FC4C322EBC14A00E1604F /* AudioComponentDescription+Printable.swift in Sources */,
 				79F138FB22CFA3780021105C /* AVAudioUnitComponent+Comparable.swift in Sources */,
 				79C32E7C227B8B67008ECBCD /* AVAUComponents.swift in Sources */,
 				79B56ED022E67F0B00950EE7 /* Options.swift in Sources */,

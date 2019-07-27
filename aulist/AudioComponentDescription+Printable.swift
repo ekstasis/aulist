@@ -10,7 +10,8 @@ import Foundation
 import AVFoundation
 
 extension AudioComponentDescription : CustomStringConvertible {
-   public var description: String {
-      return "\(self.componentManufacturer.fourLetters()) / \(self.componentType) / \(self.componentSubType) :: \(self.componentFlags), \(self.componentFlagsMask)"
-   }
+    public var description: String {
+            return "[\(self.componentManufacturer.fourLetters()), \(self.componentType.fourLetters()), \(self.componentSubType.fourLetters())]"
+        //      return "\(self.componentManufacturer.fourLetters()) / \(self.componentType) / \(self.componentSubType) :: \(self.componentFlags), \(self.componentFlagsMask)"
+    }
 }
